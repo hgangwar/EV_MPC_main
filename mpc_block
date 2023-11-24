@@ -1,0 +1,13 @@
+function [Uf,Ur]  = MPC(current_timestep,SOC, v_curr,Torque_demand)
+    % Implementation of Nonlinear MPC 
+    coder.extrinsic('EVFmincon_test_v4')
+    
+    % MPC parameters
+    N = 8;
+    Ts=5e-04;
+    Uf=0; % must initialize output of extrinsic function
+    Ur=0; 
+    [Uf,Ur] = EVFmincon_test_v4(SOC, v_curr,Ts,N,current_timestep,Torque_demand);    
+
+end
+
