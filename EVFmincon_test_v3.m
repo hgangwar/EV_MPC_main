@@ -1,4 +1,4 @@
-function [U_f,U_r] = EVFmincon_test_v3(SOC, v_curr, Ts,N,current_timestep,Torque_demand)
+function [U_f,U_r] = EVFmincon_test_v3(SOC, v_curr, Ts,N,current_timestep)
 %% Extrinsic function used by Nonlinear MPC Block
     % Initializing U vector
     % Using motor speed as decision variable
@@ -31,7 +31,7 @@ function [U_f,U_r] = EVFmincon_test_v3(SOC, v_curr, Ts,N,current_timestep,Torque
     info.torque_limit=data.TorqueVsSpeed;
 
     COST = @(u) EVObjectiveFCN(u, N, Ts, v_curr, v_ref, veh, info);
-    CONSTRAINTS = @(u) EVConstraintFCN(u, N, SOC);
+    CONSTRAINTS = @(u) EVConstraintFCN(u, N, SOC, flag1);
     options = optimoptions('fmincon','Algorithm','sqp','Display','iter');
     [uopt,~,exitflag,~]= fmincon(COST,u0,[],[],[],[],LB,UB,CONSTRAINTS,options);
     disp(exitflag)
@@ -51,7 +51,7 @@ function J = EVObjectiveFCN(u, N, Ts, v_curr, v_ref, veh, info)
     F_rr = veh.M*9.81*veh.Crr;
         
     % Calculating current torque demand
-    F_trac = F_aero + F_rr + veh.M*(v_ref(1) - v_k)/Ts;
+    F_trac = F_aero + F_rr + veh.M*(v_ref - v_k)/Ts;
     torque_demand = F_trac*veh.R_whl;
     torque_demand_vec = [torque_demand_vec torque_demand];
     
@@ -98,7 +98,7 @@ function J = EVObjectiveFCN(u, N, Ts, v_curr, v_ref, veh, info)
 
         % Calculating the next torque demand
         % Assuming  
-        F_trac = F_aero + F_rr + veh.M*(v_ref(i) - v_k_next)/Ts;
+        F_trac = F_aero + F_rr + veh.M*(v_ref - v_k_next)/Ts;
         next_torque_demand = F_trac*veh.R_whl;
 
         % Calculating motor speed
@@ -115,7 +115,7 @@ function J = EVObjectiveFCN(u, N, Ts, v_curr, v_ref, veh, info)
 end
 
 %%
-function [c,ceq]=EVConstraintFCN(u, N,SOC)
+function [c,ceq]=EVConstraintFCN(u, N, torque_demand_vec, J2_vec, SOC, flag1)
     % split :- 1 -> Rear motor
     % split :- 0 -> Front motor
     torque_max = 900;
