@@ -13,7 +13,7 @@ In this repository, we present our work on developing a comprehensive solution f
 
 - Creating a vehicle model and implementing a Model Predictive Control (MPC) algorithm in MATLAB® and Simulink®.
 - Targeting the optimization of multiple electric motors to achieve superior energy efficiency under various operating conditions.
-- Successfully reducing State of Charge (SOC) consumption by 3.7% compared to baseline Hamiltonian optimization techniques.
+- Successfully reducing State of Charge (SOC) consumption by 1.07% compared to baseline Hamiltonian optimization techniques.
 - Implementation of Nonlinear Model Predictive Control (NMPC) to further enhance the performance of our system.
 
 We invite you to explore our codebase and documentation to delve deeper into our approach and findings. Feel free to reach out with any questions or suggestions!
