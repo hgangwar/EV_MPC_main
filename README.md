@@ -18,6 +18,6 @@ In this repository, we present our work on developing a comprehensive solution f
 
 We invite you to explore our codebase and documentation to delve deeper into our approach and findings. Feel free to reach out with any questions or suggestions!
 
-To view instructions to replicate results, **[click here](https://drive.google.com/file/d/1PJkkHIfEkvp6nNujRUkIYu6tby4R9PYi/view?usp=sharing)https://drive.google.com/file/d/1PJkkHIfEkvp6nNujRUkIYu6tby4R9PYi/view?usp=sharing)**
+To view instructions to replicate results, **[click here](https://drive.google.com/file/d/1PJkkHIfEkvp6nNujRUkIYu6tby4R9PYi/view?usp=sharing)**
 
 Happy coding.
